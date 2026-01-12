@@ -1,0 +1,7 @@
+node_modules/
+.env
+deploy.bat
+deploy.sh
+.vscode/
+pizza-api-manual-handler.zip
+pizza-api-manual--cli-user_accessKeys.csv
