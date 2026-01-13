@@ -51,7 +51,10 @@ Deploy to AWS Lambda using SAM or AWS CLI:
 ```bash
 sam deploy
 ```
-
+or using npn script from package.json
+```bash
+npm run deploy
+```
 Testing
 Test with curl:
 # Get all pizzas
