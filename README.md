@@ -17,26 +17,16 @@ pizza-api-manual/
 - ├── handlers/ # Handler functions
 - │  ├── get-pizzas.mjs
 - │  ├── create-pizza.mjs
-
-│  ├── edit-pizza.mjs
-
-│  ├── delete-pizza.mjs
-
-│  ├── get-orders.mjs
-
-│  ├── create-order.mjs
-
-│  ├── edit-order.mjs
-
-│  └── delete-order.mjs
-
-├── stores/ # Data stores
-
-│  ├── pizza.store.mjs
-
-│  └── order.store.mjs
-
-└── README.md
+- │  ├── edit-pizza.mjs
+- │  ├── delete-pizza.mjs
+- │  ├── get-orders.mjs
+- │  ├── create-order.mjs
+- │  ├── edit-order.mjs
+- │  └── delete-order.mjs
+- ├── stores/ # Data stores
+- │  ├── pizza.store.mjs
+- │  └── order.store.mjs
+- └── README.md
 
 ## API Endpoints
 
