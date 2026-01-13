@@ -13,28 +13,28 @@ Lambda-based REST API for pizza ordering system built with AWS Lambda and API Ga
 ## Project Structure
 pizza-api-manual/
 
--├── api.mjs # Main Lambda handler
--├── handlers/ # Handler functions
--│ ├── get-pizzas.mjs
--│ ├── create-pizza.mjs
+- ├── api.mjs # Main Lambda handler
+- ├── handlers/ # Handler functions
+- │  ├── get-pizzas.mjs
+- │  ├── create-pizza.mjs
 
-│ ├── edit-pizza.mjs
+│  ├── edit-pizza.mjs
 
-│ ├── delete-pizza.mjs
+│  ├── delete-pizza.mjs
 
-│ ├── get-orders.mjs
+│  ├── get-orders.mjs
 
-│ ├── create-order.mjs
+│  ├── create-order.mjs
 
-│ ├── edit-order.mjs
+│  ├── edit-order.mjs
 
-│ └── delete-order.mjs
+│  └── delete-order.mjs
 
 ├── stores/ # Data stores
 
-│ ├── pizza.store.mjs
+│  ├── pizza.store.mjs
 
-│ └── order.store.mjs
+│  └── order.store.mjs
 
 └── README.md
 
