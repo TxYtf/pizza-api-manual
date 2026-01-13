@@ -50,15 +50,20 @@ Deploy to AWS Lambda using SAM or AWS CLI:
 
 ```bash
 sam deploy
+```
+
 Testing
 Test with curl:
 # Get all pizzas
+```bash
 curl https://<api-url>/pizza-api/pizzas
-
+```
 # Create order
+```bash
 curl -X POST https://<api-url>/pizza-api/order \
   -H "Content-Type: application/json" \
   -d '{"pizzaID":1,"address":"вул. Хрещатик, 10, Київ","customerName":"Іван Петренко","phone":"+380501234567"}'
+```
 Technologies
 AWS Lambda
 
