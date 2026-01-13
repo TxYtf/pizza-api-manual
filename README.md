@@ -13,11 +13,10 @@ Lambda-based REST API for pizza ordering system built with AWS Lambda and API Ga
 ## Project Structure
 pizza-api-manual/
 
- ├── api.mjs # Main Lambda handler
- ├── handlers/ # Handler functions
- │ ├── get-pizzas.mjs
-
-│ ├── create-pizza.mjs
+-├── api.mjs # Main Lambda handler
+-├── handlers/ # Handler functions
+-│ ├── get-pizzas.mjs
+-│ ├── create-pizza.mjs
 
 │ ├── edit-pizza.mjs
 
