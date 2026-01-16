@@ -1,7 +1,13 @@
+.vscode/
 node_modules/
+
+awscli-2.33.1/
+awscli.tar.gz
+
 .env
+
 deploy.bat
 deploy.sh
-.vscode/
+
 pizza-api-manual-handler.zip
 pizza-api-manual--cli-user_accessKeys.csv
