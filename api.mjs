@@ -41,7 +41,7 @@ function parseRequestBody(event) {
     }
 
     if (!contentTypeValue.toLowerCase().startsWith('application/json')) {
-      return { error: 'Invalid content type' };
+      return { error: 'Invalid content type!' };
     }
     // Limit body size
     if (body.length > MAX_BODY_SIZE) {
