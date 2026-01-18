@@ -2,18 +2,18 @@
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
 import { DynamoDBDocumentClient } from '@aws-sdk/lib-dynamodb';
 import { PutCommand } from '@aws-sdk/lib-dynamodb';
-//simport { randomUUID } from 'crypto';
+//import { randomUUID } from 'crypto';
 
 const docClient = new DynamoDBDocumentClient(new DynamoDBClient());
 
 /**
- * @param {Object} order
- *  @param {number} order.pizzaID
- *  @param {string} order.address
- *  @param {string} order.customerName
- *  @param {string} order.phone
- *  @param {string} order.status
- */
+  * @param {Object} order
+  *  @param {number} order.pizzaID
+  *  @param {string} order.address
+  *  @param {string} order.customerName
+  *  @param {string} order.phone
+  *  @param {string} order.status
+*/
 
 async function createOrder(order) {
   if(!order || !order.pizzaID  || !order.address)

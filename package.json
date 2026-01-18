@@ -5,7 +5,9 @@
   "main": "api.js",
   "scripts": {
     "deploy": "npm run zip && aws lambda update-function-code --function-name pizza-api-manual-handler --zip-file fileb://pizza-api-manual-handler.zip",
-    "zip": "powershell \"Remove-Item pizza-api-manual-handler.zip -ErrorAction SilentlyContinue; $items = Get-ChildItem -Path . | Where-Object { $_.Name -notin @('package-lock.json', 'deploy.bat', '.vscode') -and $_.Extension -ne '.zip' }; Compress-Archive -Path $items -DestinationPath pizza-api-manual-handler.zip -Force\"",
+    "zip": "node zip.js",
+    "zip2": "powershell \"if (Test-Path pizza-api-manual-handler.zip) { Remove-Item pizza-api-manual-handler.zip }; Compress-Archive -Path *.mjs,handlers,stores,data,package.json,node_modules -DestinationPath pizza-api-manual-handler.zip\"",
+    "zip1": "powershell \"Remove-Item pizza-api-manual-handler.zip -ErrorAction SilentlyContinue; $items = Get-ChildItem -Path . | Where-Object { $_.Name -notin @('package-lock.json') -and $_.Extension -ne '.zip' }; Compress-Archive -Path $items -DestinationPath pizza-api-manual-handler.zip -Force\"",
     "check-zip": "powershell \"Expand-Archive pizza-api-manual-handler.zip -DestinationPath temp-check -Force; Get-ChildItem temp-check -Recurse; Remove-Item temp-check -Recurse -Force\"",
     "create-function": "aws lambda create-function --function-name pizza-api-manual-handler --runtime nodejs18.x --role arn:aws:iam::YOUR_ACCOUNT:role/lambda-execution-role --handler api.handler --zip-file fileb://pizza-api-manual-handler.zip",
     "test-pizzas": "aws lambda invoke --function-name pizza-api-manual-handler --payload '{\"httpMethod\":\"GET\",\"resource\":\"/pizzas\"}' response.json && type response.json",
@@ -17,8 +19,9 @@
   "description": "",
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.970.0",
-    "@aws-sdk/client-lambda": "^3.970.0",
-    "@aws-sdk/client-s3": "^3.970.0",
     "@aws-sdk/lib-dynamodb": "^3.970.0"
+  },
+  "devDependencies": {
+    "archiver": "^7.0.1"
   }
 }

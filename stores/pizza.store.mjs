@@ -5,13 +5,14 @@
 // У реальному проекті ми замінимо це на запити до бази даних (DynamoDB, RDS тощо).
 // ========================================
 
-// import pizzaStore from '../data/pizzas.json' with { type: 'json' };
+import pizzaStore from '../data/pizzas.json' with { type: 'json' };
 
-export const pizzas = [
-  {
-    id: 1,
-    name: "Маргарита",
-    price: 12.99,
-    ingredients: ["томатний соус", "моцарела", "базилік"]
-  }
-];
+export const pizzas = pizzaStore;
+// [
+//   {
+//     id: 1,
+//     name: "Маргарита",
+//     price: 12.99,
+//     ingredients: ["томатний соус", "моцарела", "базилік"]
+//   }
+// ];
