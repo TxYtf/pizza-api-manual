@@ -126,30 +126,124 @@ async function getOrders(orderId = null, orderDate = null, phone = null, address
 
 export default getOrders;
 
-// Всі замовлення
-// const allOrders = await getOrders('all');
+/**
+// -> Всі замовлення
+const allOrders = await getOrders('all');
 
-// Конкретне замовлення за ID
-// const order = await getOrders('1768780931612');
+// -> Event JSON for Test event in AWS Lambda:
+{
+  "httpMethod": "GET",
+  "resource": "/orders",
+  "pathParameters": null,
+  "headers": {},
+  "body": null
+}
 
-// Замовлення за датою
-// const todayOrders = await getOrders(null, '2026-01-19');
 
-// Замовлення за телефоном
-// const phoneOrders = await getOrders(null, null, '+380501234567');
+// -> Конкретне замовлення за ID
+const order = await getOrders('1768781883233');
 
-// Замовлення за адресою
-// const addressOrders = await getOrders(null, null, null, 'Хрещатик');
+// -> Event JSON for Test event in AWS Lambda:
+{
+  "httpMethod": "GET",
+  "resource": "/order/{id}",
+  "pathParameters": {
+    "id": "1768781883233"
+  },
+  "headers": {},
+  "body": null
+}
 
-// Замовлення за іменем
-// const customerOrders = await getOrders(null, null, null, null, 'Іван');
 
-// Всі замовлення конкретної піци
-// const pizzaOrders = await getOrders(null, null, null, null, null, 1);
+// -> Замовлення за датою
+const todayOrders = await getOrders(null, '2026-01-19');
 
-// Pending замовлення конкретної піци
-// const pendingPizzaOrders = await getOrders(null, null, null, null, null, 1, 'pending');
+// -> Event JSON for Test event in AWS Lambda:
+{
+  "httpMethod": "GET",
+  "resource": "/orders-date/{date}",
+  "pathParameters": {
+    "date": "2026-01-19"
+  },
+  "headers": {},
+  "body": null
+}
 
+
+// -> Замовлення за телефоном
+const phoneOrders = await getOrders(null, null, '+380501234567');
+
+// -> Event JSON for Test event in AWS Lambda:
+{
+  "httpMethod": "GET",
+  "resource": "/orders-phone/{phone}",
+  "pathParameters": {
+    "phone": "+380501234567"
+  },
+  "headers": {},
+  "body": null
+}
+
+
+// -> Замовлення за адресою
+const addressOrders = await getOrders(null, null, null, 'Хрещатик');
+
+// -> Event JSON for Test event in AWS Lambda:
+{
+  "httpMethod": "GET",
+  "resource": "/orders-address/{address}",
+  "pathParameters": {
+    "address": "Хрещатик"
+  },
+  "headers": {},
+  "body": null
+}
+
+
+// -> Замовлення за іменем
+const customerOrders = await getOrders(null, null, null, null, 'Іван');
+
+// -> Event JSON for Test event in AWS Lambda:
+{
+  "httpMethod": "GET",
+  "resource": "/orders-customer/{customerName}",
+  "pathParameters": {
+    "customerName": "Іван"
+  },
+  "headers": {},
+  "body": null
+}
+
+
+// -> Всі замовлення конкретної піци
+const pizzaOrders = await getOrders(null, null, null, null, null, 1);
+
+// -> Event JSON for Test event in AWS Lambda:
+{
+  "httpMethod": "GET",
+  "resource": "/orders-pizza/{pizzaID}",
+  "pathParameters": {
+    "pizzaID": "1"
+  },
+  "headers": {},
+  "body": null
+}
+
+
+// -> Всі замовлення конкретної піци зі статусом 'pending'
+const pendingPizzaOrders = await getOrders(null, null, null, null, null, 1, 'pending');
+
+// -> Event JSON for Test event in AWS Lambda:
+{
+  "httpMethod": "GET",
+  "resource": "/orders-status/{status}",
+  "pathParameters": {
+    "status": "pending"
+  },
+  "headers": {},
+  "body": null
+}
+*/
 
 
 // // Previous in-memory implementation (commented out)
