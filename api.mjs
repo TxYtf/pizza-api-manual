@@ -193,7 +193,7 @@ export async function handler(event) {
             statusCode = 400;
             body = JSON.stringify({ error: orderData.error });
           } else {
-            const newOrder = createOrder(orderData);
+            const newOrder = await createOrder(orderData);
             if (newOrder.errorMessage) {
               statusCode = 400;
               body = JSON.stringify({ error: newOrder.errorMessage });
