@@ -72,14 +72,13 @@ function parseRequestBody(event) {
 // Основний код обробника Lambda API
 // =========================================================================
 export async function handler(event) {
-  console.log('--> Method:', event.httpMethod);
-  console.log('--> Path:', event.resource);
-  console.log('--> Body:', event.body);
-  console.log('--> Headers:', event.headers);
-  console.log('--> Path Parameters:', event.pathParameters);
-  console.log('--> API Event:', {
+
+  console.log('--> API request event:', {
     method: event.httpMethod,
     path: event.resource,
+    pathParameters: event.pathParameters,
+    body: event.body,
+    headers: event.headers,
     stage: event.requestContext?.stage
   });
 
