@@ -2,28 +2,28 @@
   "Table": {
     "AttributeDefinitions": [
       {
-        "AttributeName": "orderId",
+        "AttributeName": "pizzaId",
         "AttributeType": "S"
       }
     ],
-    "TableName": "pizza-orders",
+    "TableName": "pizza-store",
     "KeySchema": [
       {
-        "AttributeName": "orderId",
+        "AttributeName": "pizzaId",
         "KeyType": "HASH"
       }
     ],
     "TableStatus": "ACTIVE",
-    "CreationDateTime": "2026-01-16T01:16:04.393000+02:00",
+    "CreationDateTime": "2026-01-21T04:39:03.218000+02:00",
     "ProvisionedThroughput": {
       "NumberOfDecreasesToday": 0,
       "ReadCapacityUnits": 1,
       "WriteCapacityUnits": 1
     },
-    "TableSizeBytes": 584,
-    "ItemCount": 3,
-    "TableArn": "arn:aws:dynamodb:eu-north-1:055694273372:table/pizza-orders",
-    "TableId": "1359ef5d-8c69-479b-97a6-3a2f52584388",
+    "TableSizeBytes": 0,
+    "ItemCount": 0,
+    "TableArn": "arn:aws:dynamodb:eu-north-1:055694273372:table/pizza-store",
+    "TableId": "4a006e63-efe9-4652-9682-f721e6b771d9",
     "DeletionProtectionEnabled": false,
     "WarmThroughput": {
       "ReadUnitsPerSecond": 1,

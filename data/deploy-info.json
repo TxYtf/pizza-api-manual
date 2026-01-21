@@ -1,0 +1,40 @@
+{
+  "FunctionName": "pizza-api-manual-handler",
+  "FunctionArn": "arn:aws:lambda:eu-north-1:055694273372:function:pizza-api-manual-handler",
+  "Runtime": "nodejs22.x",
+  "Role": "arn:aws:iam::055694273372:role/service-role/pizza-api-manual-handler-role-rb9hzail",
+  "Handler": "api.handler",
+  "CodeSize": 5571061,
+  "Description": "",
+  "Timeout": 10,
+  "MemorySize": 128,
+  "LastModified": "2026-01-21T03:29:02.000+0000",
+  "CodeSha256": "DnjL4SErOFfdQOWxLYzYbB9IjtQkLJeyBm8aKu+XJwo=",
+  "Version": "$LATEST",
+  "TracingConfig": {
+    "Mode": "PassThrough"
+  },
+  "RevisionId": "5de9409d-043c-4032-a1d6-876474381745",
+  "State": "Active",
+  "LastUpdateStatus": "InProgress",
+  "LastUpdateStatusReason": "The function is being created.",
+  "LastUpdateStatusReasonCode": "Creating",
+  "PackageType": "Zip",
+  "Architectures": [
+    "x86_64"
+  ],
+  "EphemeralStorage": {
+    "Size": 512
+  },
+  "SnapStart": {
+    "ApplyOn": "None",
+    "OptimizationStatus": "Off"
+  },
+  "RuntimeVersionConfig": {
+    "RuntimeVersionArn": "arn:aws:lambda:eu-north-1::runtime:fc822b897c0f33df4df3bc8d3c18d7449cfa5d4f32cd596bcfb8080fdefbad43"
+  },
+  "LoggingConfig": {
+    "LogFormat": "Text",
+    "LogGroup": "/aws/lambda/pizza-api-manual-handler"
+  }
+}
