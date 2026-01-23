@@ -18,8 +18,14 @@ archive.pipe(output);
 archive.file('api.mjs', { name: 'api.mjs' });
 archive.file('package.json', { name: 'package.json' });
 archive.directory('handlers/', 'handlers/');
-archive.directory('stores/', 'stores/');
-archive.directory('data/', 'data/');
 archive.directory('node_modules/', 'node_modules/');
 
+// Тимчасові файли
+archive.file('temp-scripts/zip.js', { name: 'temp-scripts/zip.js' });
+archive.directory('data/', 'data/');
+archive.directory('roles/', 'roles/');
+archive.directory('stores/', 'stores/');
+archive.directory('tests/', 'tests/');
+
+// Завершуємо архівацію
 archive.finalize();

@@ -5,7 +5,7 @@
   "main": "api.js",
   "scripts": {
     "deploy": "npm run zip && aws lambda update-function-code --function-name pizza-api-manual-handler --zip-file fileb://pizza-api-manual-handler.zip",
-    "zip": "node zip.js",
+    "zip": "node temp-scripts/zip.js",
     "check-zip": "powershell \"Expand-Archive pizza-api-manual-handler.zip -DestinationPath temp-check -Force; Get-ChildItem temp-check -Recurse; Remove-Item temp-check -Recurse -Force\"",
     "create-function": "aws lambda create-function --function-name pizza-api-manual-handler --runtime nodejs18.x --role arn:aws:iam::055694273372:role/AWSLambdaBasicExecutionRole --handler api.handler --zip-file fileb://pizza-api-manual-handler.zip",
     "test-root": "aws lambda invoke --function-name pizza-api-manual-handler --payload file://tests/test-root.json --cli-binary-format raw-in-base64-out tests/response.json && node -e \"console.log(JSON.stringify(JSON.parse(require('fs').readFileSync('tests/response.json', 'utf8')), null, 2))\"",
