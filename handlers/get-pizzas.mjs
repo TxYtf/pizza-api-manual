@@ -1,3 +1,5 @@
+// handlers/get-pizzas.mjs
+
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
 import { DynamoDBDocumentClient } from '@aws-sdk/lib-dynamodb';
 import { ScanCommand, GetCommand } from '@aws-sdk/lib-dynamodb';
@@ -24,7 +26,7 @@ async function getPizzas(pizzaID) {
     if (pizzaID && pizzaID !== 'all') {
       const result = await docClient.send(new GetCommand({
         TableName: 'pizza-store',
-        Key: { id: pizzaID.toString() }
+        Key: { pizzaId: pizzaID.toString() }
       }));
 
       return result.Item || null;
