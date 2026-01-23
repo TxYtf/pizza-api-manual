@@ -119,7 +119,7 @@ export async function handler(event) {
             body = JSON.stringify(pizzaItems);
             break;
           case '/pizzas':
-            pizzaItems = getPizzas('all');
+            pizzaItems = await getPizzas('all');
             statusCode = 200;
             body = JSON.stringify(pizzaItems);
             break;
@@ -129,7 +129,7 @@ export async function handler(event) {
               statusCode = 400;
               body = JSON.stringify({ error: validatedPizza.error });
             } else {
-              pizzaItems = getPizzas(validatedPizza.id);
+              pizzaItems = await getPizzas(validatedPizza.id);
               if (pizzaItems !== null) {
                 statusCode = 200;
                 body = JSON.stringify(pizzaItems);
@@ -233,9 +233,14 @@ export async function handler(event) {
               statusCode = 400;
               body = JSON.stringify({ error: newPizzaData.error });
             } else {
-              const newPizza = addPizza(newPizzaData);
-              statusCode = 201;
-              body = JSON.stringify({ message: 'Pizza created successfully', pizza: newPizza });
+              const newPizza = await addPizza(newPizzaData);
+              if (newPizza.errorMessage) {
+                statusCode = 400;
+                body = JSON.stringify({ error: newPizza.errorMessage });
+              } else {
+                statusCode = 201;
+                body = JSON.stringify({ message: 'Pizza created successfully', pizza: newPizza });
+              }
             }
             break;
           case '/order':
@@ -277,7 +282,7 @@ export async function handler(event) {
               statusCode = 400;
               body = JSON.stringify({ error: updatedData.error });
             } else {
-              const existingPizza = editPizza(validated.id, updatedData);
+              const existingPizza = await editPizza(validated.id, updatedData);
 
               if (existingPizza === -1) {
                 statusCode = 404;
@@ -300,7 +305,7 @@ export async function handler(event) {
               statusCode = 400;
               body = JSON.stringify({ error: updatedData.error });
             } else {
-              const existingOrder = editOrder(validated.id, updatedData);
+              const existingOrder = await editOrder(validated.id, updatedData);
 
               if (existingOrder === -1) {
                 statusCode = 404;
@@ -324,7 +329,7 @@ export async function handler(event) {
             statusCode = 400;
             body = JSON.stringify({ error: validated.error });
           } else {
-            const deletedPizza = deletePizza(validated.id);
+            const deletedPizza = await deletePizza(validated.id);
 
             if (deletedPizza === -1) {
               statusCode = 404;
@@ -340,7 +345,7 @@ export async function handler(event) {
             statusCode = 400;
             body = JSON.stringify({ error: validated.error });
           } else {
-            const deletedOrder = deleteOrder(validated.id);
+            const deletedOrder = await deleteOrder(validated.id);
 
             if (deletedOrder === -1) {
               statusCode = 404;
