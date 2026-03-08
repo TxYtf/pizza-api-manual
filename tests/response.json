@@ -1,1 +1,9 @@
-{"statusCode":200,"body":"{\"message\":\"Pizza deleted successfully\",\"pizza\":{\"message\":\"Pizza with ID:d368c4ee-c9c2-479b-aed0-ae9f21f9e71f deleted successfully\"}}","headers":{"Content-Type":"application/json","Access-Control-Allow-Origin":"*","Access-Control-Allow-Methods":"DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT"}}
+{
+  "statusCode": 200,
+  "body": "{\"message\":\"Order updated successfully\",\"order\":{\"orderDate\":\"2026-01-27T22:57:19.717Z\",\"customerName\":\"Roshen\",\"orderId\":\"1769554639717\",\"status\":\"pending\",\"pizzaID\":1,\"address\":\"Київ\",\"phone\":\"+380501234567\"}}",
+  "headers": {
+    "Content-Type": "application/json",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT"
+  }
+}
