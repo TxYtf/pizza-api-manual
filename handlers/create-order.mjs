@@ -23,7 +23,7 @@ async function createOrder(order) {
 
   //const newId = randomUUID(); // Приклад: "550e8400-e29b-41d4-a716-446655440000"
   //const newId = `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`; // Приклад: "1705456789123-k2j3h4g5f"
-  const newId = Date.now(); // Використовуємо поточний час у мілісекундах як унікальний ID
+  const newId = toBase62(Date.now()); // Використовуємо поточний час у мілісекундах як унікальний ID
   const newOrder = {
     orderId: newId.toString(),
     pizzaID: order.pizzaID,
@@ -55,3 +55,17 @@ async function createOrder(order) {
 }
 
 export default createOrder;
+
+function toBase62(num) {
+  const chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  
+  if (num === 0) return '0';
+
+  let result = '';
+  while (num > 0) {
+    result = chars[num % 62] + result;
+    num = Math.floor(num / 62);
+  }
+
+  return result;
+}

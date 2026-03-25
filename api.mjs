@@ -86,6 +86,7 @@ export async function handler(event) {
   let orderItems = null;
   let statusCode = null;
   let body = null;
+  let bodyObject = null; // Змінна для зберігання об'єкта відповіді
 
   const method = event.httpMethod;        // GET, POST, PUT, DELETE
   const path = event.resource;            // наприклад "/pizzas" або "/pizza/{id}"
@@ -116,26 +117,26 @@ export async function handler(event) {
           case '/':
             pizzaItems = 'Welcome to Pizza API';
             statusCode = 200;
-            body = JSON.stringify(pizzaItems);
+            bodyObject = pizzaItems;
             break;
           case '/pizzas':
             pizzaItems = await getPizzas('all');
             statusCode = 200;
-            body = JSON.stringify(pizzaItems);
+            bodyObject = pizzaItems;
             break;
           case '/pizza/{id}':
             const validatedPizza = validateId(pathParams);
             if (!validatedPizza.isValid) {
               statusCode = 400;
-              body = JSON.stringify({ error: validatedPizza.error });
+              bodyObject = { error: validatedPizza.error };
             } else {
               pizzaItems = await getPizzas(validatedPizza.id);
               if (pizzaItems !== null) {
                 statusCode = 200;
-                body = JSON.stringify(pizzaItems);
+                bodyObject = pizzaItems;
               } else {
                 statusCode = 404;
-                body = JSON.stringify({ error: '>>>> Pizza not found' });
+                bodyObject = { error: '>>>> Pizza not found' };
               }
             }
             break;
@@ -143,22 +144,22 @@ export async function handler(event) {
             // Всі замовлення
             orderItems = await getOrders('all');
             statusCode = 200;
-            body = JSON.stringify(orderItems);
+            bodyObject = orderItems;
             break;
 
           case '/order/{id}':
             const validatedOrder = validateId(pathParams);
             if (!validatedOrder.isValid) {
               statusCode = 400;
-              body = JSON.stringify({ error: validatedOrder.error });
+              bodyObject = { error: validatedOrder.error };
             } else {
               orderItems = await getOrders(validatedOrder.id.toString());
               if (orderItems && !orderItems.errorMessage) {
                 statusCode = 200;
-                body = JSON.stringify(orderItems);
+                bodyObject = orderItems;
               } else {
                 statusCode = 404;
-                body = JSON.stringify({ error: '>>>> Order not found' });
+                bodyObject = { error: '>>>> Order not found' };
               }
             }
             break;
@@ -167,40 +168,40 @@ export async function handler(event) {
             orderItems = await getOrders(null, pathParams.date);
             if (orderItems && orderItems.length > 0) {
               statusCode = 200;
-              body = JSON.stringify(orderItems);
+              bodyObject = orderItems;
             } else {
               statusCode = 404;
-              body = JSON.stringify({ error: '>>>> No orders found for this date' });
+              bodyObject = { error: '>>>> No orders found for this date' };
             }
             break;
 
           case '/orders-phone/{phone}':
             orderItems = await getOrders(null, null, pathParams.phone);
             statusCode = orderItems.length > 0 ? 200 : 404;
-            body = JSON.stringify(orderItems.length > 0 ? orderItems : { error: '>>>> No orders found for this phone' });
+            bodyObject = orderItems.length > 0 ? orderItems : { error: '>>>> No orders found for this phone' };
             break;
 
           case '/orders-address/{address}':
             orderItems = await getOrders(null, null, null, decodeURIComponent(pathParams.address));
             statusCode = orderItems.length > 0 ? 200 : 404;
-            body = JSON.stringify(orderItems.length > 0 ? orderItems : { error: '>>>> No orders found for this address' });
+            bodyObject = orderItems.length > 0 ? orderItems : { error: '>>>> No orders found for this address' };
             break;
 
           case '/orders-customer/{customerName}':
             orderItems = await getOrders(null, null, null, null, decodeURIComponent(pathParams.customerName));
             statusCode = orderItems.length > 0 ? 200 : 404;
-            body = JSON.stringify(orderItems.length > 0 ? orderItems : { error: '>>>> No orders found for this customer' });
+            bodyObject = orderItems.length > 0 ? orderItems : { error: '>>>> No orders found for this customer' };
             break;
 
           case '/orders-pizza/{pizzaID}':
             const pizzaId = parseInt(pathParams.pizzaID);
             if (isNaN(pizzaId)) {
               statusCode = 400;
-              body = JSON.stringify({ error: '>>>> Invalid pizza ID' });
+              bodyObject = { error: '>>>> Invalid pizza ID' };
             } else {
               orderItems = await getOrders(null, null, null, null, null, pizzaId);
               statusCode = orderItems.length > 0 ? 200 : 404;
-              body = JSON.stringify(orderItems.length > 0 ? orderItems : { error: '>>>> No orders found for this pizza' });
+              bodyObject = orderItems.length > 0 ? orderItems : { error: '>>>> No orders found for this pizza' };
             }
             break;
 
@@ -208,17 +209,17 @@ export async function handler(event) {
             const statusValue = pathParams.status;
             if (statusValue !== 'pending' && statusValue !== 'completed') {
               statusCode = 400;
-              body = JSON.stringify({ error: '>>>> Invalid status value' });
+              bodyObject = { error: '>>>> Invalid status value' };
             } else {
               orderItems = await getOrders(null, null, null, null, null, null, statusValue);
               statusCode = orderItems.length > 0 ? 200 : 404;
-              body = JSON.stringify(orderItems.length > 0 ? orderItems : { error: '>>>> No orders found for this status' });
+              bodyObject = { error: '>>>> No orders found for this status' };
             }
             break;
 
           default:
             statusCode = 404;
-            body = JSON.stringify({ error: '>>>> Order not Found' });
+            bodyObject = { error: '>>>> Order not Found' };
         }
         break;
 
@@ -231,15 +232,15 @@ export async function handler(event) {
             const newPizzaData = parseRequestBody(event);
             if (newPizzaData.error) {
               statusCode = 400;
-              body = JSON.stringify({ error: newPizzaData.error });
+              bodyObject = { error: newPizzaData.error };
             } else {
               const newPizza = await addPizza(newPizzaData);
               if (newPizza.errorMessage) {
                 statusCode = 400;
-                body = JSON.stringify({ error: newPizza.errorMessage });
+                bodyObject = { error: newPizza.errorMessage };
               } else {
                 statusCode = 201;
-                body = JSON.stringify({ message: 'Pizza created successfully', pizza: newPizza });
+                bodyObject = { message: 'Pizza created successfully', pizza: newPizza };
               }
             }
             break;
@@ -247,21 +248,21 @@ export async function handler(event) {
             const orderData = parseRequestBody(event);
             if (orderData.error) {
               statusCode = 400;
-              body = JSON.stringify({ error: orderData.error });
+              bodyObject = { error: orderData.error };
             } else {
               const newOrder = await createOrder(orderData);
               if (newOrder.errorMessage) {
                 statusCode = 400;
-                body = JSON.stringify({ error: newOrder.errorMessage });
+                bodyObject = { error: newOrder.errorMessage };
               } else {
                 statusCode = 201;
-                body = JSON.stringify({ message: 'Order created successfully', order: newOrder });
+                bodyObject = { message: 'Order created successfully', order: newOrder };
               }
             }
             break;
           default:
             statusCode = 404;
-            body = JSON.stringify({ error: '>>>> Unknown resource for POST method' });
+            bodyObject = { error: '>>>> Unknown resource for POST method' };
         }
         break;
 
@@ -274,22 +275,22 @@ export async function handler(event) {
           const validated = validateId(pathParams);
           if (!validated.isValid) {
             statusCode = 400;
-            body = JSON.stringify({ error: validated.error });
+            bodyObject = { error: validated.error };
           } else {
             const updatedData = parseRequestBody(event);
 
             if (updatedData.error) {
               statusCode = 400;
-              body = JSON.stringify({ error: updatedData.error });
+              bodyObject = { error: updatedData.error };
             } else {
               const existingPizza = await editPizza(validated.id, updatedData);
 
               if (existingPizza === -1) {
                 statusCode = 404;
-                body = JSON.stringify({ error: '>>>> Pizza not found' });
+                bodyObject = { error: '>>>> Pizza not found' };
               } else {
                 statusCode = 200;
-                body = JSON.stringify({ message: 'Pizza updated successfully', pizza: existingPizza });
+                bodyObject = { message: 'Pizza updated successfully', pizza: existingPizza };
               }
             }
           }
@@ -297,22 +298,22 @@ export async function handler(event) {
           const validated = validateId(pathParams);
           if (!validated.isValid) {
             statusCode = 400;
-            body = JSON.stringify({ error: validated.error });
+            bodyObject = { error: validated.error };
           } else {
             const updatedData = parseRequestBody(event);
 
             if (updatedData.error) {
               statusCode = 400;
-              body = JSON.stringify({ error: updatedData.error });
+              bodyObject = { error: updatedData.error };
             } else {
               const existingOrder = await editOrder(validated.id, updatedData);
 
               if (existingOrder === -1) {
                 statusCode = 404;
-                body = JSON.stringify({ error: '>>>> Order not found' });
+                bodyObject = { error: '>>>> Order not found' };
               } else {
                 statusCode = 200;
-                body = JSON.stringify({ message: 'Order updated successfully', order: existingOrder });
+                bodyObject = { message: 'Order updated successfully', order: existingOrder };
               }
             }
           }
@@ -327,32 +328,32 @@ export async function handler(event) {
           const validated = validateId(pathParams);
           if (!validated.isValid) {
             statusCode = 400;
-            body = JSON.stringify({ error: validated.error });
+            bodyObject = { error: validated.error };
           } else {
             const deletedPizza = await deletePizza(validated.id);
 
             if (deletedPizza === -1) {
               statusCode = 404;
-              body = JSON.stringify({ error: '>>>> Pizza not found' });
+              bodyObject = { error: '>>>> Pizza not found' };
             } else {
               statusCode = 200;
-              body = JSON.stringify({ message: 'Pizza deleted successfully', pizza: deletedPizza });
+              bodyObject = { message: 'Pizza deleted successfully', pizza: deletedPizza };
             }
           }
         } else if (path === '/order/{id}') {
           const validated = validateId(pathParams);
           if (!validated.isValid) {
             statusCode = 400;
-            body = JSON.stringify({ error: validated.error });
+            bodyObject = { error: validated.error };
           } else {
             const deletedOrder = await deleteOrder(validated.id);
 
             if (deletedOrder === -1) {
               statusCode = 404;
-              body = JSON.stringify({ error: '>>>> Order not found' });
+              bodyObject = { error: '>>>> Order not found' };
             } else {
               statusCode = 200;
-              body = JSON.stringify({ message: 'Order deleted successfully', order: deletedOrder });
+              bodyObject = { message: 'Order deleted successfully', order: deletedOrder };
             }
           }
         }
@@ -364,15 +365,16 @@ export async function handler(event) {
       default:
         if (!statusCode && !body) {
           statusCode = 405;
-          body = JSON.stringify({ error: '>>>> Unknown method' });
+          bodyObject = { error: '>>>> Unknown method' };
         }
     }
   } catch (error) {
     console.error('>>>> Handler error:', error);
     statusCode = 500;
-    body = JSON.stringify({ error: '>>>> Internal server error' });
+    bodyObject = { error: '>>>> Internal server error' };
   }
 
+  body = JSON.stringify(bodyObject);
   return {
     statusCode,
     body,
