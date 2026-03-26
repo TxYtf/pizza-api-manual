@@ -18,6 +18,8 @@ archive.pipe(output);
 archive.file('api.mjs', { name: 'api.mjs' });
 archive.file('package.json', { name: 'package.json' });
 archive.directory('handlers/', 'handlers/');
+archive.directory('routes/', 'routes/');
+archive.directory('utils/', 'utils/');
 archive.directory('node_modules/', 'node_modules/');
 
 // Тимчасові файли
