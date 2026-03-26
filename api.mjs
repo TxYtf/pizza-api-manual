@@ -26,12 +26,17 @@ export async function handler(event) {
       event.parsedBody = parsed;
     }
 
+    // шукаємо запит і маршрут у масиві зареєстрованих запитів з їхніми маршрутами і хендлерами
     const route = router.resolve(event);
 
+    console.log('Route found:', route);
+
+    // якщо не знайшли такий маршрут - повертаємо 404
     if (!route) {
-      return createResponse(404, { error: '>>>> Not found' });
+      return createResponse(404, { error: '>>>> Route or request method not found' });
     }
 
+    // викликаємо хендлер, який відповідає нашому запиту і маршруту
     const result = await route.handler(event);
 
     if (result?.statusCode) {
